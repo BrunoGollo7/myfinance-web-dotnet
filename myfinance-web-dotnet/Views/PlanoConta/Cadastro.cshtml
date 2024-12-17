@@ -1,0 +1,53 @@
+﻿@model PlanoContaModel
+
+@{
+    ViewData["Title"] = "Cadastro de item do Plano de Contas";
+}
+
+@if (TempData["MensagemSucesso"] != null)
+{
+    <div id="mensagemSucesso" class="alert alert-success">
+        @TempData["MensagemSucesso"]
+    </div>
+
+    <script>
+        // Espera 1 segundo e faz a animação de desvanecimento
+        setTimeout(function() {
+            $('#mensagemSucesso').fadeOut(1000); // Desaparece suavemente em 1 segundo
+        }, 1000);
+    </script>
+}
+
+<body>
+    <div class="container mt-4">
+        <!-- Título da Página -->
+        <h1 class="text-center">@ViewData["Title"]</h1>
+
+        <!-- Formulário de Cadastro -->
+        <form asp-controller="PlanoConta" asp-action="Cadastro" method="post">
+            <!-- Campo para nome do item -->
+            <div class="form-group">
+                <label for="nomeItem">Nome do Item</label>
+                <input type="text" class="form-control" id="nomeItem"  asp-for="Nome" placeholder="Digite o nome do item" required>
+            </div>
+
+            <!-- Seletor de Tipo de Item (Despesa ou Renda) -->
+            <div class="form-group">
+                <label for="tipoItem">Tipo de Item</label>
+                <select class="form-control" id="tipoItem"  asp-for="Tipo" required>
+                    <option value="" disabled selected>Selecione o tipo de item</option>
+                    <option value="D">Despesa</option>
+                    <option value="R">Renda</option>
+                </select>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="form-group text-right mt-3">
+                <button type="submit" class="btn btn-success">Salvar</button>
+                <a asp-controller="PlanoConta" asp-action="Index" class="btn btn-secondary ml-2">Voltar</a>
+            </div>
+        </form>
+    </div>
+
+    
+</body>

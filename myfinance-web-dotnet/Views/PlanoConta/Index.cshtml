@@ -1,0 +1,61 @@
+﻿@using myfinance_web_dotnet.Domain
+@{
+    ViewData["Title"] = "Plano de Contas";
+}
+
+
+<body>
+    <div class="container mt-4">
+        <!-- Título da Página -->
+        <h1 class="text-center">Plano de Contas</h1>
+
+        <!-- Botão "Criar Item de Plano de Conta" -->
+        <div class="text-right mb-3">
+            <a asp-controller="PlanoConta" asp-action="Cadastro" class="btn btn-primary">Criar Item de Plano de Conta</a>
+        </div>
+
+        <!-- Tabela de Itens do Plano de Contas -->
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Descrição</th>
+                    <th>Tipo</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Exemplo de item na tabela (esses dados devem ser preenchidos dinamicamente pelo seu backend) -->
+                @{foreach(var item in (List<PlanoConta>)ViewBag.Lista){
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Nome</td>
+                        <td>@item.Tipo</td>
+                        <td>
+                            <!-- Botões para editar e excluir -->
+                            <a href="../PlanoConta/Cadastro/@item.Id" class="btn btn-warning btn-sm">Editar</a>
+                            <a onclick="Excluir(@item.Id)"  class="btn btn-danger btn-sm ml-2">Excluir</a>
+                        </td>
+                    </tr>
+                }}
+                <!-- Fim do exemplo -->
+            </tbody>
+        </table>
+    </div>
+</body>
+
+<script type="text/javascript">
+    function Excluir(id) {
+        // Exibe a caixa de confirmação
+        var resposta = confirm("Tem certeza que deseja excluir este item?");
+        
+        // Se o usuário clicar em "OK", redireciona para a ação de exclusão
+        if (resposta) {
+            // Se o usuário confirmar, a página será redirecionada para a ação de exclusão
+            window.location.href = "../PlanoConta/Excluir/" + id;
+        }
+
+        // Se o usuário cancelar, não faz nada
+        return false;
+    }
+</script>
